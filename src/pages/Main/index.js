@@ -44,6 +44,8 @@ export default class Main extends Component {
   render() {
     const { newRepo, loading } = this.state;
 
+    // Se em SubmitButton passar loading como bollean exibe:
+    // "Warning: Received `false` for a non-boolean attribute `loading`"
     return (
       <Container>
         <h1>
@@ -59,7 +61,7 @@ export default class Main extends Component {
             onChange={this.handleInputChange}
           />
 
-          <SubmitButton loading={loading}>
+          <SubmitButton loading={loading ? 1 : 0}>
             {loading ? (
               <FaSpinner color="#FFF" size={14} />
             ) : (
