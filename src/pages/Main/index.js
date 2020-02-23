@@ -26,19 +26,27 @@ export default class Main extends Component {
 
     // console.log(newRepo);
 
-    const response = await api.get(`/repos/${newRepo}`);
+    const obj = this;
+    api
+      .get(`/repos/${newRepo}`)
+      .then(response => {
+        // console.log(response.data);
 
-    // console.log(response.data);
+        const data = {
+          name: response.data.full_name,
+        };
 
-    const data = {
-      name: response.data.full_name,
-    };
-
-    this.setState({
-      repositories: [...repositories, data],
-      newRepo: "",
-      loading: false,
-    });
+        obj.setState({
+          repositories: [...repositories, data],
+          newRepo: "",
+          loading: false,
+        });
+      })
+      .catch(error => {
+        obj.setState({ loading: false });
+        console.log(error);
+        alert(error);
+      });
   };
 
   render() {
